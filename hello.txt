@@ -1,6 +1,45 @@
-a
-b
-c
-d
-e
-f
+using System;
+using System.Collections.Generic;
+
+public class LabelCounter
+{
+    public Dictionary<string, int> CountLabels(List<string> labels, List<string> targetLabels)
+    {
+        var labelCount = new Dictionary<string, int>();
+
+        // 라벨 카운트 초기화
+        foreach (var targetLabel in targetLabels)
+        {
+            labelCount[targetLabel] = 0;
+        }
+
+        // 라벨 목록을 순회하면서 카운트
+        foreach (var label in labels)
+        {
+            if (labelCount.ContainsKey(label))
+            {
+                labelCount[label]++;
+            }
+        }
+
+        return labelCount;
+    }
+}
+
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        var labels = new List<string> { "bug", "documentation", "enhancement", "bug", "enhancement" };
+        var targetLabels = new List<string> { "bug", "documentation", "enhancement" };
+
+        var labelCounter = new LabelCounter();
+        var result = labelCounter.CountLabels(labels, targetLabels);
+
+        // 결과 출력
+        foreach (var kvp in result)
+        {
+            Console.WriteLine($"{kvp.Key}: {kvp.Value}");
+        }
+    }
+}
